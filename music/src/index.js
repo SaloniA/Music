@@ -23,13 +23,46 @@ class Note extends React.Component {
   }
 }
 
+class Row extends React.Component {
+	renderNote(i){
+		return <Note />;
+	}
+	render() {
+		return(
+			<div>
+				<div> 
+					{this.renderNote(0)}
+					{this.renderNote(1)}
+					{this.renderNote(2)}
+					{this.renderNote(3)}
+				</div>
+				<div> 
+					{this.renderNote(4)}
+					{this.renderNote(5)}
+					{this.renderNote(6)}
+					{this.renderNote(7)}
+				</div>
+				<div> 
+					{this.renderNote(8)}
+					{this.renderNote(9)}
+					{this.renderNote(10)}
+					{this.renderNote(11)}
+				</div>
+				<div> 
+					{this.renderNote(12)}
+					{this.renderNote(13)}
+					{this.renderNote(14)}
+					{this.renderNote(15)}
+				</div>
+			</div>			
+		);
+	}
+}
 
 
 
 ReactDOM.render(
-	<div>
-		<Note />
-	</div>,
-	document.getElementById('root'),
+	<Row />,
+	document.getElementById('root')
 );
 
