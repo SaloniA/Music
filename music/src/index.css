@@ -1,6 +1,5 @@
 [class*="note-"] {
   border: 1px solid #999;
-  float: left;
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
@@ -21,4 +20,9 @@
 
 .note-disabled{
   background: #6f5;
+}
+
+
+.board{
+  display: block;
 }

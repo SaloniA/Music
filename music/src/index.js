@@ -28,10 +28,10 @@ class Row extends React.Component {
 		super();
 
 		this.state = {
-			notes: this.renderNotes()
+			notes: this.createNotes()
 		}
 	}
-	renderNotes() {
+	createNotes() {
 		var notes = new Array(16);
 		for (var i = 0; i < 16 ; i++) {
 			notes[i] = <Note />;
@@ -49,10 +49,37 @@ class Row extends React.Component {
 	}
 }
 
+class Board extends React.Component {
+	constructor(props){
+		super();
 
+		this.state = {
+			rows: this.createRows(props.defaultRows)
+		}
+	}
+
+	createRows(numRows) {
+		var rows = [];
+		for (var i=0; i < numRows; i++) {
+			rows.push(<Row />);
+		}
+		return rows;
+	}
+
+	render() {
+		return (
+//			<div style={{display: "block"}}>
+			<div className="block">
+				{this.state.rows}
+			</div>
+		);
+
+	}
+
+}
 
 ReactDOM.render(
-	<Row />,
+	<Board defaultRows={4}/>,
 	document.getElementById('root')
 );
 
