@@ -48,27 +48,40 @@ class Row extends React.Component {
 		super();
 
 		this.state = {
-			notes: this.createNotes()
+			notes: []
 		}
 
 		this.playNoteAt = this.playNoteAt.bind(this);
 	}
-	createNotes() {
-		var notes = new Array(16);
-		for (var i = 0; i < 16 ; i++) {
-			notes[i] = <Note />;
-		}
-		return notes;
-	}
 
-	playNoteAt(i) {
-		this.state.notes[i].setPlaying(true);
+	// __createNoteRefs() {
+ //  		var refs = [];
+ //  		for (var i=0; i < 16; i++) {
+ //  			refs[i] = React.createRef();
+ //  		}
+ //  		return refs;
+ //  	}
+	 
+	setNoteAt(i, ref) {
+  		var notes = this.state.notes;
+  		notes[i] = ref;
+  		this.setState({notes: notes}); 
+  	}
+
+	playNoteAt(i, playing) {
+		this.state.notes[i].setPlaying(playing);
 	}
 
 	render() {
 		return(
 			<div>
-				{this.state.notes}
+				<Note ref={(r) => this.state.notes[0] = r}/>
+				<Note ref={(r) => this.state.notes[1] = r}/>
+				<Note ref={(r) => this.state.notes[2] = r}/>
+				<Note ref={(r) => this.state.notes[3] = r}/>
+				<Note ref={(r) => this.state.notes[4] = r}/>
+				<Note ref={(r) => this.state.notes[5] = r}/>
+				<Note ref={(r) => this.state.notes[6] = r}/>
 			</div>
 
 		);
@@ -80,35 +93,56 @@ class Board extends React.Component {
 		super();
 
 		this.state = {
-			rows: this.createRows(props.defaultRows),
+			rows: [],
 			playing: true,
 			bpm: 120.0,
 			currentPlaying: 0
 		}
-		this.loopPlay = this.loopPlay.bind(this);
+
 		this.incrementIndex = this.incrementIndex.bind(this);
-		this.loopPlay();
+		this.loopPlay = this.loopPlay.bind(this);
 	}
 
-	createRows(numRows) {
-		var rows = [];
-		for (var i=0; i < numRows; i++) {
-			rows.push(<Row />);
-		}
-		return rows;
-	}
+	componentDidMount() {
+    	this.loopPlay();
+  	}
+
+  	// __createRowRefs() {
+  	// 	var refs = [];
+  	// 	for (var i=0; i < 4; i++) {
+  	// 		refs[i] = React.createRef();
+  	// 	}
+  	// 	console.log(refs);
+  	// 	return refs;
+  	// }
+
+  	setRowAt(i, ref) {
+  		var rows = this.state.rows;
+  		rows[i] = ref;
+  		this.setState({rows: rows}); 
+  	}
 
 	loopPlay() {
-		console.log("Test");
-		setInterval(this.loopPlay, (60/(this.state.bpm*16))*1000);
-		this.state.rows.forEach(function (row) {
-			row.playNoteAt(this.state.currentPlaying);
-		});
+		let currentPlaying = this.state.currentPlaying;
+		for (var i=0; i < this.state.rows.length; i++) {
+			let row = this.state.rows[i];
+			row.playNoteAt(currentPlaying, true);
+			if (currentPlaying === 0) {
+				row.playNoteAt(6, false);
+			}
+			else {
+				row.playNoteAt(currentPlaying-1, false);
+			}
+		}
 		this.incrementIndex();
+		//setInterval(this.loopPlay, (60/(this.state.bpm*16))*1000);
+		var d = new Date();
+		console.log(d.toLocaleTimeString());
+		setInterval(this.loopPlay, 2000);
 	}
 
 	incrementIndex() {
-		if (this.state.currentPlaying > 15) {
+		if (this.state.currentPlaying > 5) {
 			this.setState({currentPlaying: 0});
 		} else {
 			this.setState({currentPlaying: this.state.currentPlaying+1});
@@ -117,12 +151,13 @@ class Board extends React.Component {
 	}
 	render() {
 		return (
-//			<div style={{display: "block"}}>
 			<div className="block">
-				{this.state.rows}
+				<Row ref={(r) => this.state.rows[0] = r}/>
+				<Row ref={(r) => this.state.rows[1] = r}/>
+				<Row ref={(r) => this.state.rows[2] = r}/>
+				<Row ref={(r) => this.state.rows[3] = r}/>
 			</div>
 		);
-
 	}
 
 }
