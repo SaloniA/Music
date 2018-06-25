@@ -104,17 +104,15 @@ class Board extends React.Component {
 	}
 
 	componentDidMount() {
-    	this.loopPlay();
+    	this.interval = setInterval(() => {
+    		console.log("Test");
+    		this.loopPlay();
+    	}, 100);
   	}
 
-  	// __createRowRefs() {
-  	// 	var refs = [];
-  	// 	for (var i=0; i < 4; i++) {
-  	// 		refs[i] = React.createRef();
-  	// 	}
-  	// 	console.log(refs);
-  	// 	return refs;
-  	// }
+  	componentWillUnmount() {
+    	clearInterval(this.interval);
+  	}
 
   	setRowAt(i, ref) {
   		var rows = this.state.rows;
@@ -135,10 +133,6 @@ class Board extends React.Component {
 			}
 		}
 		this.incrementIndex();
-		//setInterval(this.loopPlay, (60/(this.state.bpm*16))*1000);
-		var d = new Date();
-		console.log(d.toLocaleTimeString());
-		setInterval(this.loopPlay, 2000);
 	}
 
 	incrementIndex() {
