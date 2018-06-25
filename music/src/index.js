@@ -138,13 +138,23 @@ class Board extends React.Component {
 		}
 
 	}
+
+	__renderRow(i) {
+		return <Row ref={(r) => this.state.rows[i] = r}/>;
+	}
+
+	__renderRows(n) {
+		var rows = [];
+		for (var i = 0; i < n; i++) {
+			rows.push(this.__renderRow(i));
+		}
+		return rows;
+	}
+
 	render() {
 		return (
 			<div className="block">
-				<Row ref={(r) => this.state.rows[0] = r}/>
-				<Row ref={(r) => this.state.rows[1] = r}/>
-				<Row ref={(r) => this.state.rows[2] = r}/>
-				<Row ref={(r) => this.state.rows[3] = r}/>
+				{this.__renderRows(this.props.defaultRows)}
 			</div>
 		);
 	}
