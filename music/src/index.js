@@ -100,7 +100,6 @@ class Board extends React.Component {
 
 	componentDidMount() {
     	this.interval = setInterval(() => {
-    		console.log("Test");
     		this.loopPlay();
     	}, 100);
   	}
