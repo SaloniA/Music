@@ -7,16 +7,36 @@ class Note extends React.Component {
   	super();
 
   	this.state = {
-  		enabled: false
+  		enabled: false,
+  		playing: false
   	}
   }
+
   setEnabled() {
   	this.setState({enabled: !this.state.enabled}); 
   }
+
+  setPlaying(isPlaying){
+   	this.setState({playing: isPlaying}); 
+  }
   render() {
-  	let btn_class = this.state.enabled ? "note-enabled" : "note-disabled";
+  	var note_class;
+  	if (this.state.enabled) {
+  		if (this.state.playing) {
+  			note_class = "note-enabled-playing";
+  		} else {
+  			note_class = "note-enabled";
+  		}
+  	} else {
+  		if (this.state.playing) {
+  			note_class = "note-disabled-playing";
+  		} else {
+  			note_class = "note-disabled";
+  		}
+  	} 
+
     return (
-      <button className={btn_class} onClick={this.setEnabled.bind(this)}>
+      <button className={note_class} onClick={this.setEnabled.bind(this)}>
       	js
       </button>
     );
@@ -30,6 +50,8 @@ class Row extends React.Component {
 		this.state = {
 			notes: this.createNotes()
 		}
+
+		this.playNoteAt = this.playNoteAt.bind(this);
 	}
 	createNotes() {
 		var notes = new Array(16);
@@ -37,6 +59,10 @@ class Row extends React.Component {
 			notes[i] = <Note />;
 		}
 		return notes;
+	}
+
+	playNoteAt(i) {
+		this.state.notes[i].setPlaying(true);
 	}
 
 	render() {
@@ -54,8 +80,14 @@ class Board extends React.Component {
 		super();
 
 		this.state = {
-			rows: this.createRows(props.defaultRows)
+			rows: this.createRows(props.defaultRows),
+			playing: true,
+			bpm: 120.0,
+			currentPlaying: 0
 		}
+		this.loopPlay = this.loopPlay.bind(this);
+		this.incrementIndex = this.incrementIndex.bind(this);
+		this.loopPlay();
 	}
 
 	createRows(numRows) {
@@ -66,6 +98,23 @@ class Board extends React.Component {
 		return rows;
 	}
 
+	loopPlay() {
+		console.log("Test");
+		setInterval(this.loopPlay, (60/(this.state.bpm*16))*1000);
+		this.state.rows.forEach(function (row) {
+			row.playNoteAt(this.state.currentPlaying);
+		});
+		this.incrementIndex();
+	}
+
+	incrementIndex() {
+		if (this.state.currentPlaying > 15) {
+			this.setState({currentPlaying: 0});
+		} else {
+			this.setState({currentPlaying: this.state.currentPlaying+1});
+		}
+
+	}
 	render() {
 		return (
 //			<div style={{display: "block"}}>
@@ -82,4 +131,3 @@ ReactDOM.render(
 	<Board defaultRows={4}/>,
 	document.getElementById('root')
 );
-
