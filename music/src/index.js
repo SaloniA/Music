@@ -51,14 +51,6 @@ class Row extends React.Component {
 
 		this.playNoteAt = this.playNoteAt.bind(this);
 	}
-
-	// __createNoteRefs() {
- //  		var refs = [];
- //  		for (var i=0; i < 16; i++) {
- //  			refs[i] = React.createRef();
- //  		}
- //  		return refs;
- //  	}
 	 
 	setNoteAt(i, ref) {
   		var notes = this.state.notes;
@@ -70,18 +62,23 @@ class Row extends React.Component {
 		this.state.notes[i].setPlaying(playing);
 	}
 
+	__renderNote(i) {
+		return <Note ref={(r) => this.state.notes[i] = r}/>;
+	}
+
+	__renderNotes() {
+		var notes = [];
+		for (var i = 0; i < 16; i++) {
+			notes.push(this.__renderNote(i));
+		}
+		return notes;
+	}
+
 	render() {
 		return(
 			<div>
-				<Note ref={(r) => this.state.notes[0] = r}/>
-				<Note ref={(r) => this.state.notes[1] = r}/>
-				<Note ref={(r) => this.state.notes[2] = r}/>
-				<Note ref={(r) => this.state.notes[3] = r}/>
-				<Note ref={(r) => this.state.notes[4] = r}/>
-				<Note ref={(r) => this.state.notes[5] = r}/>
-				<Note ref={(r) => this.state.notes[6] = r}/>
+				{this.__renderNotes()}
 			</div>
-
 		);
 	}
 }
@@ -124,7 +121,7 @@ class Board extends React.Component {
 			let row = this.state.rows[i];
 			row.playNoteAt(currentPlaying, true);
 			if (currentPlaying === 0) {
-				row.playNoteAt(6, false);
+				row.playNoteAt(15, false);
 			}
 			else {
 				row.playNoteAt(currentPlaying-1, false);
@@ -134,7 +131,7 @@ class Board extends React.Component {
 	}
 
 	incrementIndex() {
-		if (this.state.currentPlaying > 5) {
+		if (this.state.currentPlaying > 14) {
 			this.setState({currentPlaying: 0});
 		} else {
 			this.setState({currentPlaying: this.state.currentPlaying+1});
