@@ -11,11 +11,12 @@
   width: 50px;
 }
 
-
+*:focus {
+    outline: none;
+}
 
 .note-enabled{
   background: #00ACC1;
-  
 }
 
 .note-disabled{

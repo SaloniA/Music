@@ -36,9 +36,7 @@ class Note extends React.Component {
   	} 
 
     return (
-      <button className={note_class} onClick={this.setEnabled.bind(this)}>
-      	js
-      </button>
+      <button className={note_class} onClick={this.setEnabled.bind(this)} />
     );
   }
 }
