@@ -24,11 +24,11 @@
 }
 
 .note-enabled-playing{
-  background: #343;
+  background: #293;
 }
 
 .note-disabled-playing{
-  background: #454;
+  background: #fff;
 }
 
 .board{

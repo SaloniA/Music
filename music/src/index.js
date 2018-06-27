@@ -46,6 +46,7 @@ class Row extends React.Component {
 		super();
 
 		this.state = {
+			audio: new Audio('assets/audio/Bass-Drum-1.wav'),
 			notes: []
 		}
 
@@ -60,6 +61,10 @@ class Row extends React.Component {
 
 	playNoteAt(i, playing) {
 		this.state.notes[i].setPlaying(playing);
+		if(playing && this.state.notes[i].state.enabled) {
+			this.state.audio.currentTime = 0;
+			this.state.audio.play();
+		}
 	}
 
 	__renderNote(i) {
