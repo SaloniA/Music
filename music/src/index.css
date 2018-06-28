@@ -16,21 +16,49 @@
 }
 
 .note-enabled{
-  background: #00ACC1;
+  background: #5D001E;
 }
 
 .note-disabled{
-  background: #6f5;
+  background: #E3AFBC;
 }
 
 .note-enabled-playing{
-  background: #293;
+  background: #9A1750;
 }
 
 .note-disabled-playing{
-  background: #fff;
+  background: #EE4C7C;
 }
 
 .board{
   display: block;
+}
+
+.play{
+  border: 1px solid #999;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 50px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 50px;
+  background: #725;
+}
+
+.pause{
+  border: 1px solid #999;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 50px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 50px;
+  background: #ff1744;
 }

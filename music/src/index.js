@@ -2,6 +2,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+class PlayButton extends React.Component {
+	constructor(){
+		super();
+
+		this.state = {
+			play: false
+		}
+	}
+
+	togglePlaying() {
+  		this.setState({play: !this.state.play}); 
+  	}
+
+	render() {
+  	var note_class;
+  		if (this.state.play) {
+  			note_class = "play";
+  		} else {
+  			note_class = "pause";
+  		}
+
+  		return (
+     		<button className={note_class} onClick={this.togglePlaying.bind(this)} />
+    	);
+  	} 
+}
+
+
 class Note extends React.Component {
   constructor(){
   	super();
@@ -96,7 +124,8 @@ class Board extends React.Component {
 			rows: [],
 			playing: true,
 			bpm: 120.0,
-			currentPlaying: 0
+			currentPlaying: 0,
+			playButton: null 
 		}
 
 		this.incrementIndex = this.incrementIndex.bind(this);
@@ -105,18 +134,14 @@ class Board extends React.Component {
 
 	componentDidMount() {
     	this.interval = setInterval(() => {
-    		this.loopPlay();
+    		if (this.state.playButton !== null && this.state.playButton.state.play) {
+    			this.loopPlay();
+    		}
     	}, 100);
   	}
 
   	componentWillUnmount() {
     	clearInterval(this.interval);
-  	}
-
-  	setRowAt(i, ref) {
-  		var rows = this.state.rows;
-  		rows[i] = ref;
-  		this.setState({rows: rows}); 
   	}
 
 	loopPlay() {
@@ -155,17 +180,27 @@ class Board extends React.Component {
 		return rows;
 	}
 
+	__renderPlayButton() {
+		return <PlayButton ref={(r) => this.state.playButton = r}/>;
+	}
+
 	render() {
 		return (
+			<div>
 			<div className="block">
 				{this.__renderRows(this.props.defaultRows)}
 			</div>
+			<div>
+				{this.__renderPlayButton()}
+			</div>
+			</div>
 		);
 	}
-
 }
 
 ReactDOM.render(
-	<Board defaultRows={4}/>,
+	<div style={{backgroundColor: "#E3E2DF"}}>
+	<Board defaultRows={4}/>
+	</div>,
 	document.getElementById('root')
 );
