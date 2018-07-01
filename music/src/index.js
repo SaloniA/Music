@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class PlayButton extends React.Component {
-	constructor(){
+	constructor(props){
 		super();
 
 		this.state = {
@@ -31,7 +31,7 @@ class PlayButton extends React.Component {
 
 
 class Note extends React.Component {
-  constructor(){
+  constructor(props){
   	super();
 
   	this.state = {
@@ -70,11 +70,10 @@ class Note extends React.Component {
 }
 
 class Row extends React.Component {
-	constructor() {
+	constructor(props) {
 		super();
 
 		this.state = {
-			audio: new Audio('assets/audio/Bass-Drum-1.wav'),
 			notes: []
 		}
 
@@ -87,11 +86,11 @@ class Row extends React.Component {
   		this.setState({notes: notes}); 
   	}
 
-	playNoteAt(i, playing) {
+	playNoteAt(i, playing, props) {
 		this.state.notes[i].setPlaying(playing);
 		if(playing && this.state.notes[i].state.enabled) {
-			this.state.audio.currentTime = 0;
-			this.state.audio.play();
+			this.props.audio.currentTime = 0;
+			this.props.audio.play();
 		}
 	}
 
@@ -168,15 +167,17 @@ class Board extends React.Component {
 
 	}
 
-	__renderRow(i) {
-		return <Row ref={(r) => this.state.rows[i] = r}/>;
+	__renderRow(i, audio) {
+		return <Row ref={(r) => this.state.rows[i] = r} audio={audio}/>;
 	}
 
+	// Renders all rows, calls renderRow to create each row
 	__renderRows(n) {
 		var rows = [];
-		for (var i = 0; i < n; i++) {
-			rows.push(this.__renderRow(i));
-		}
+		rows.push(this.__renderRow(0, new Audio('assets/audio/Bass-Drum.wav')));
+		rows.push(this.__renderRow(1, new Audio('assets/audio/Hi-Hat.wav')));
+		rows.push(this.__renderRow(2, new Audio('assets/audio/Snare.wav')));
+		rows.push(this.__renderRow(3, new Audio('assets/audio/Bass-Drum.wav')));		
 		return rows;
 	}
 
