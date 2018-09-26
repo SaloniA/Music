@@ -18,15 +18,27 @@ class PlayButton extends React.Component {
 	render() {
   	var note_class;
   		if (this.state.play) {
-  			note_class = "play";
+  			note_class = "playbtn-playing";
   		} else {
-  			note_class = "pause";
+  			note_class = "playbtn-paused";
   		}
 
   		return (
      		<button className={note_class} onClick={this.togglePlaying.bind(this)} />
     	);
   	} 
+}
+
+class Instrument extends React.Component {
+  constructor(props){
+  	super();
+  }
+
+  render() {
+    return (
+      <button className="instrument-not-selected" />
+    );
+  }
 }
 
 
@@ -109,6 +121,7 @@ class Row extends React.Component {
 	render() {
 		return(
 			<div>
+				<Instrument/>
 				{this.__renderNotes()}
 			</div>
 		);
@@ -200,8 +213,8 @@ class Board extends React.Component {
 }
 
 ReactDOM.render(
-	<div style={{backgroundColor: "#E3E2DF"}}>
-	<Board defaultRows={4}/>
+	<div className="center">
+		<Board defaultRows={4}/>
 	</div>,
 	document.getElementById('root')
 );

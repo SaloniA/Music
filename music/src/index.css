@@ -1,14 +1,25 @@
 [class*="note-"] {
-  border: 1px solid #999;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
   height: 50px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
+  margin: 2px;
   width: 50px;
+  padding: 0;
+  border: none;
+}
+
+[class*="playbtn-"] {
+  height: 50px;
+  margin: 2px;
+  width: 80px;
+  padding: 0;
+  border: none;
+}
+
+[class*="instrument-"] {
+  height: 50px;
+  margin: 2px;
+  width: 80px;
+  padding: 0;
+  border: none;
 }
 
 *:focus {
@@ -16,19 +27,31 @@
 }
 
 .note-enabled{
-  background: #5D001E;
+  background: #5AC367;
 }
 
 .note-disabled{
-  background: #E3AFBC;
+  background: #2B2B2B;
 }
 
 .note-enabled-playing{
-  background: #9A1750;
+  background: #FFFFFF;
 }
 
 .note-disabled-playing{
-  background: #EE4C7C;
+  background: #888888;
+}
+
+.playbtn-playing{
+  background: #5AC367;
+}
+
+.playbtn-paused{
+  background: #2B2B2B;
+}
+
+.instrument-not-selected{
+  background: #2B2B2B;
 }
 
 .board{
@@ -36,29 +59,26 @@
 }
 
 .play{
-  border: 1px solid #999;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
   height: 50px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
+  margin: 2px;
   width: 50px;
-  background: #725;
+  background: #73AD21;
+  padding: 0;
+  border: none;
 }
 
 .pause{
-  border: 1px solid #999;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
   height: 50px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
+  margin: 2px;
   width: 50px;
-  background: #ff1744;
+  background: #73AD21;
+  padding: 0;
+  border: none;
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+    border: 3px solid #73AD21;
+    padding: 10px;
 }
