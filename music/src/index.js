@@ -24,7 +24,9 @@ class PlayButton extends React.Component {
   		}
 
   		return (
-     		<button className={play_class} onClick={this.togglePlaying.bind(this)} />
+     		<button className={play_class} onClick={this.togglePlaying.bind(this)}>
+     			<img src="assets/images/play.png"/>
+     		</button>
     	);
   	} 
 }
@@ -36,7 +38,9 @@ class Instrument extends React.Component {
 
   render() {
     return (
-      <button className="instrument-not-selected" />
+      <button className="instrument-not-selected">
+      	<img src={this.props.icon}/>
+      </button>
     );
   }
 }
@@ -122,8 +126,8 @@ class Row extends React.Component {
 
 	render() {
 		return(
-			<div>
-				<Instrument/>
+			<div className="row">
+				<Instrument icon={this.props.icon}/>
 				{this.__renderNotes()}
 			</div>
 		);
@@ -182,17 +186,17 @@ class Board extends React.Component {
 
 	}
 
-	__renderRow(i, audio) {
-		return <Row ref={(r) => this.state.rows[i] = r} audio={audio}/>;
+	__renderRow(i, audio, icon) {
+		console.log(icon);
+		return <Row ref={(r) => this.state.rows[i] = r} audio={audio} icon={icon}/>;
 	}
 
 	// Renders all rows, calls renderRow to create each row
 	__renderRows(n) {
 		var rows = [];
-		rows.push(this.__renderRow(0, new Audio('assets/audio/Bass-Drum.wav')));
-		rows.push(this.__renderRow(1, new Audio('assets/audio/Hi-Hat.wav')));
-		rows.push(this.__renderRow(2, new Audio('assets/audio/Snare.wav')));
-		rows.push(this.__renderRow(3, new Audio('assets/audio/Bass-Drum.wav')));		
+		rows.push(this.__renderRow(0, new Audio('assets/audio/Bass-Drum.wav'), "assets/images/bass_drum.png"));
+		rows.push(this.__renderRow(1, new Audio('assets/audio/Hi-Hat.wav'), "assets/images/high_hat.png"));
+		rows.push(this.__renderRow(2, new Audio('assets/audio/Snare.wav'), "assets/images/snare_drum.png"));		
 		return rows;
 	}
 
