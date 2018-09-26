@@ -34,6 +34,10 @@
   background: #2B2B2B;
 }
 
+.note-disabled:hover {
+    background-color: #4D4D4D;
+}
+
 .note-enabled-playing{
   background: #FFFFFF;
 }
