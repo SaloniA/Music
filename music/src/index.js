@@ -16,15 +16,15 @@ class PlayButton extends React.Component {
   	}
 
 	render() {
-  	var note_class;
+  	var play_class;
   		if (this.state.play) {
-  			note_class = "playbtn-playing";
+  			play_class = "playbtn-playing";
   		} else {
-  			note_class = "playbtn-paused";
+  			play_class = "playbtn-paused";
   		}
 
   		return (
-     		<button className={note_class} onClick={this.togglePlaying.bind(this)} />
+     		<button className={play_class} onClick={this.togglePlaying.bind(this)} />
     	);
   	} 
 }
@@ -70,7 +70,9 @@ class Note extends React.Component {
   	} else {
   		if (this.state.playing) {
   			note_class = "note-disabled-playing";
-  		} else {
+  		} else if (this.props.isStartOfBar)
+  			note_class = "note-disabled-start-of-bar";
+  		else {
   			note_class = "note-disabled";
   		}
   	} 
@@ -107,7 +109,7 @@ class Row extends React.Component {
 	}
 
 	__renderNote(i) {
-		return <Note ref={(r) => this.state.notes[i] = r}/>;
+		return <Note isStartOfBar={i % 4 == 0} ref={(r) => this.state.notes[i] = r}/>;
 	}
 
 	__renderNotes() {

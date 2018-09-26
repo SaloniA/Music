@@ -34,6 +34,10 @@
   background: #2B2B2B;
 }
 
+.note-disabled-start-of-bar{
+  background: #4D4D4D;
+}
+
 .note-disabled:hover {
     background-color: #4D4D4D;
 }
